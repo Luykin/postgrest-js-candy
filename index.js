@@ -96,8 +96,8 @@ function _transformAmount(amount) {
             const size = amount['size'];
             return {
                 'Range-Unit': 'items',
-                'Content-Range': `${(page - 1) * size}-${page * size}/*`,
-                'Prefer': `count=${amount['Prefer'] || 'planned'}` //exact, planned, estimated
+                'Range': `${(page - 1) * size}-${page * size - 1}`,
+                'Prefer': `count=${amount['Prefer'] || 'exact'}` //exact, planned, estimated
             }
         } else {
             return {'Accept': 'application/vnd.pgrst.object+json'}
