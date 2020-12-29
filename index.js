@@ -1,5 +1,4 @@
 import axios from 'axios';
-import qs from "qs";
 
 export const op = {};
 const reverseOp = {};
@@ -42,9 +41,15 @@ export async function pgDelete(path, where) {
 
 //修改
 export async function pgModify(path, where, data) {
-    return await _netRq(`${path}?and=(${_transformWhere(where)})`, 'put', {
+    const body = {};
+    const andItem = _transformWhere(where);
+    andItem && Object.assign(body, {'and': `(${andItem})`});
+    return await _netRq(`${path}`, 'patch', {
+        'params': body,
         'data': data
-    }, {});
+    }, {
+        'Prefer': 'return=representation'
+    });
 }
 
 //查询
@@ -124,13 +129,15 @@ function _transformWhere(where) {
         const value = listWhere[0][1];
         if (item in reverseOp) {
             if (reverseOp[item] === 'and' || reverseOp[item] === 'or') {
-                return `${reverseOp[item]}=(${_transformWhere(value)})`
+                return `${reverseOp[item]}(${_transformWhere(value)})`
             }
         }
-        const ary = Object.entries(value)[0];
+        const isValue = typeof value === 'string' || typeof value === 'number';
+        const ary = isValue ? [`${opRandom}eq`, value] : Object.entries(value)[0];
         const copyWhere = {...where};
         delete copyWhere[item];
-        return `${item}.${reverseOp[ary[0]]}.${ary[1]},${_transformWhere(copyWhere)}`;
+        const continua = Object.entries(copyWhere).length > 0;
+        return `${item}.${isValue ? 'eq' : reverseOp[ary[0]]}.${isValue ? value : ary[1]}${continua ? ',' + _transformWhere(copyWhere) : ''}`;
     } catch (e) {
         return '';
     }
@@ -141,7 +148,7 @@ function _netRq(url, method, data, headers) {
     return new Promise((resolve, reject) => {
         const fob = {url, method, headers};
         data['params'] && (fob.params = data['params']);
-        data['data'] && (fob.data = qs.stringify(data['data']));
+        data['data'] && (fob.data = (data['data']));
         axios(fob).then((res) => {
             resolve(res);
         }).catch((err) => {

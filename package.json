@@ -6,10 +6,18 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "keywords": [
+    "postgrest",
+    "postgrest-js",
+    "postgrest-js-candy"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/White-paper/postgrest-js-candy"
+  },
   "author": "luoyukun",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.21.1",
-    "qs": "^6.9.4"
+    "axios": "^0.21.1"
   }
 }
