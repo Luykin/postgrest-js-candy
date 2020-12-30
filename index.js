@@ -3,7 +3,7 @@ import axios from 'axios';
 export const op = {};
 const reverseOp = {};
 const opRandom = `__${+new Date()}__`;
-const opList = ['and', 'or', 'eq', 'gt', 'gte', 'lt', 'lte', 'like', 'ilike', 'in', 'is', 'neq', 'cs', 'cd', 'ov', 'sl', 'sr', 'nxr', 'nxl', 'adj', 'not'];
+const opList = ['and', 'or', 'eq', 'gt', 'gte', 'lt', 'lte', 'like', 'ilike', 'in', 'is', 'neq', 'cs', 'cd', 'ov', 'sl', 'sr', 'nxr', 'nxl', 'adj', 'not', 'fts', 'plfts', 'phfts', 'wfts'];
 opList.map((e) => {
     op[e] = `${opRandom}${e}`;
     reverseOp[`${opRandom}${e}`] = e;
