@@ -1,7 +1,7 @@
 {
   "name": "postgrest-js-candy",
   "version": "1.0.5",
-  "description": "",
+  "description": "⛅ postgrest-js-candy 是 postgREST 的 前端请求工具",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
