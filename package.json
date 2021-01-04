@@ -1,6 +1,6 @@
 {
   "name": "postgrest-js-candy",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "⛅ postgrest-js-candy 是 postgREST 的 前端请求工具",
   "main": "index.js",
   "scripts": {

@@ -77,8 +77,13 @@ function _transformOrder(amount) {
         if ('order' in amount) {
             const obj = amount['order'];
             let str = '';
-            for (let i in obj) {
-                str += `${i}.${obj[i]},`
+            const objArray = Object.entries(obj);
+            for (let i in objArray) {
+                const item = objArray[i];
+                if (i > 0 && i < objArray.length) {
+                    str += ','
+                }
+                str += `${item[0]}.${item[1]}`
             }
             return str;
         } else {
